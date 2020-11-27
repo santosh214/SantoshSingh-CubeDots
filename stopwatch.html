@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- bootstrap css  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- fontawesome  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/92329d302a.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-dark text-white">
+    <a class="mt-5 " href="./index.html"><button class="btn btn-sm btn-success"> <i class="fas fa-arrow-left" aria-hidden="true"></i></button> </a>
+
+    <!-- date and duration section  start -->
+    <div class="container-fluid mt-5">
+        <div class="row justify-content-center   custom-margin ">
+        <div class="col-sm-4 col-md-5 mt-4 ">
+            <h5 class=""><u>Today Date</u></h5>
+            <p id="date"></p>
+            <h5><u> Today Duration </u></h5>
+            <div class=" " style="font-size: 25px;">
+                <span id="dhour">00</span><span>:</span>
+                <span id="dmin">00</span><span>:</span>
+                <span id="dsec">00</span><span>:</span>
+                <span id="dmiliSec">00</span>
+            </div>
+    <!-- date and duration section  end -->
+
+        </div>
+    <!-- stopwatch section  start  -->
+
+            <div class="col-sm-8 bg-white text-dark  col-md-5 shadow-lg justify-content-center p-5 font-weight-bold">
+                <div class=" mt-2 ml-3 " style="font-size: 25px;">
+                    <span id="hour">00</span><span>:</span>
+                    <span id="min">00</span><span>:</span>
+                    <span id="sec">00</span><span>:</span>
+                    <span id="miliSec">000</span>
+                </div>
+               
+                <button class="btn btn-sm btn-success"  onclick="start()" value="start" id="startBtn"> <i class="fa fa-play-circle-o" aria-hidden="true"></i> Start</button>
+
+                <button class="btn btn-sm btn-danger" onclick="stop()" value="stop"  id="stopBtn"><i class="fa fa-pause-circle-o" aria-hidden="true"></i> Pause</button>
+                <button class="btn btn-sm btn-primary" onclick="reset()" value="reset" id="resetBtn"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</button>
+                
+            </div>
+    <!-- stopwatch section  End  -->
+
+        </div>
+    </div>
+
+    <p id="abc"></p>
+
+    <!-- javascript logic section  -->
+
+
+    <script>
+        // date logic start
+        var dt=new Date();
+        document.getElementById("date").innerHTML=dt.toDateString();
+    //    date logic end 
+    // stopwacth variable section start 
+        var hour = 0;
+        var min = 0;
+        var sec = 0;
+        var miliSec = 0;
+        var strt;
+    // stopwacth variable section end 
+
+        // today duratiion variable start 
+        var dhour = 0;
+        var dmin = 0;
+        var dsec = 0;
+        var dmiliSec = 0;
+        // today duratiion variable end 
+
+        // start stopwatch function call 
+
+        function start() {
+
+        strt=setInterval(startMiliSec, 10)
+            var startBtn = document.getElementById("startBtn");
+            var stopBtn = document.getElementById("stopBtn");
+            var resetBtn = document.getElementById("resetBtn");
+
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            resetBtn.disabled = false;        
+        }
+        // Ennd stopwatch function call 
+
+        // start stopwatch milisec function 
+
+        function startMiliSec() {
+            if (miliSec == 100) {
+                miliSec = 0;
+                startSec();
+            }
+            document.getElementById("miliSec").innerHTML = ('000' + ++miliSec).substr(-3);
+            document.getElementById("dmiliSec").innerHTML=('00'+ ++dmiliSec).substr(-2);
+
+        }
+        // End stopwatch milisec function 
+
+        // start stopwatch Sec function 
+
+        function startSec() {
+            if (sec == 60) {
+                sec = 0;
+                startMin();
+            }
+        
+            document.getElementById("sec").innerHTML = ('00' + ++sec).substr(-2);
+            document.getElementById("dsec").innerHTML = ('00' + ++dsec).substr(-2);
+        }
+        // End stopwatch milisec function 
+
+        // start stopwatch Min function 
+
+        function startMin() {
+            if(min==60){
+                min=0;
+                startHour();
+            }
+            document.getElementById("min").innerHTML = ('00' + ++min).substr(-2);
+            document.getElementById("dmin").innerHTML = ('00' + ++dmin).substr(-2);
+            
+        }
+        // End stopwatch Min function 
+
+        // Start stopwatch Hour function 
+
+        function startHour() {
+            if(hour<=99){
+                document.getElementById("hour").innerHTML = ('00' + ++hour).substr(-2);
+                document.getElementById("dhour").innerHTML = ('00' + ++dhour).substr(-2);
+
+            }
+            else{
+                hour=0;
+            }
+            
+        }
+        // End  stopwatch Hour function 
+//  end start  function of sttopwatch here 
+
+// stop function of stopwatch starts here 
+
+function stop(){
+    clearInterval(strt);
+    var startBtn = document.getElementById("startBtn");
+            var stopBtn = document.getElementById("stopBtn");
+            var resetBtn = document.getElementById("resetBtn");
+
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            resetBtn.disabled = false;
+    
+
+}
+
+// stop function of stopwatch End 
+
+
+// reset function of stopwatch starts here 
+
+function reset(){    
+    clearInterval(strt);
+    var startBtn = document.getElementById("startBtn");
+            var stopBtn = document.getElementById("stopBtn");
+            var resetBtn = document.getElementById("resetBtn");
+
+            startBtn.disabled = false;
+            stopBtn.disabled = false;
+            resetBtn.disabled = true;
+            
+            document.getElementById("miliSec").innerHTML="000";
+            document.getElementById("sec").innerHTML="00";
+            document.getElementById("min").innerHTML="00";
+            document.getElementById("hour").innerHTML="00";
+    hour=0;
+    min=0;
+    sec=0;
+    miliSec=0;
+
+}
+// reset function of stopwatch End  
+
+    </script>
+</body>
+
+</html>
